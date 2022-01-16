@@ -2,17 +2,17 @@
 Hexagon[][] hex;
 Hexagon[] hex_array;
 Polygon polygon;
-int min = 3;
+int min = 8;
 int max = 2*min - 1;
 int num = 0;
 float x_dist = 0;
 float y_dist = 0;
-int dist = 20;
+int dist = 30;
 int [] x;
 int [] y;
 int [] serie;
 int x_array;
-int y_array = 40;
+int y_array;
 int l;
 float tg60 = 1.7320508075688772935274463415059;
 void setup(){
@@ -23,14 +23,15 @@ void setup(){
   num *= 2;
   num += max;
   x_array = width/2;
+  y_array = height/2;
   hex_array = new Hexagon[num];
   x = new int[num];
   y = new int[num];
   serie = new int[max];
   int acc = 0;
-  l = (int)(height-80)/max;
-  x_dist = -(l * (1-tg60/2)) + dist; // -(int)(l * (1-tg60/2))
-  y_dist = (-(l * cos(radians(60))/2) + (2*dist/tg60));//  (int) (((x_dist + (int)(3*l * (1-tg60/2))))/tg60);
+  l = (int)(height-10)/max;
+  x_dist = -(l * (1-tg60/2)) + dist; 
+  y_dist = (-(l/4) -10+ (2*dist/tg60));
   for(int i=0; i<max ; i++){
     serie[i] = (min+i<=max)? min+i: serie[i-1]-1; 
   }
@@ -38,7 +39,7 @@ void setup(){
   for(int i=0; i<max; i++){
     for(int j=0; j<serie[i]; j++){
        x[j+acc] = (int)(x_array + j * (l+x_dist) - ((serie[i]/2.0)*l) - (x_dist *(((serie[i]-min)/2.0)+1)));
-       y[j+acc] = (int)(y_array + i * (l+y_dist));
+       y[j+acc] = (int)(y_array + (i - max/2)* (l+y_dist) - l/2.0 );    
     }   
     acc += serie[i];
   }
@@ -55,7 +56,12 @@ void draw(){
      stroke(#00FF00);
      strokeWeight(1);
      line(0, height/2,width,height/2);
+     
      line(width/2,0,width/2,height);
+     strokeWeight(2);
+     line(0, height/2+l/2,width,height/2+l/2);
+     line(0, height/2-l/2,width,height/2-l/2);
+     
        //for(int i=0; i<max ; i++){
        //  textSize(15);
        //  fill(#0000FF);
