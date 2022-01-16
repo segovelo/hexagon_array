@@ -2,7 +2,7 @@
 Hexagon[][] hex;
 Hexagon[] hex_array;
 Polygon polygon;
-int min = 8;
+int min = 3;
 int max = 2*min - 1;
 int num = 0;
 float x_dist = 0;
@@ -29,7 +29,8 @@ void setup(){
   y = new int[num];
   serie = new int[max];
   int acc = 0;
-  l = (int)(height-10)/max;
+  l = (int)((height-40)/max);
+  dist = l/5;
   x_dist = -(l * (1-tg60/2)) + dist; 
   y_dist = (-(l/4) -10+ (2*dist/tg60));
   for(int i=0; i<max ; i++){
@@ -38,7 +39,7 @@ void setup(){
   
   for(int i=0; i<max; i++){
     for(int j=0; j<serie[i]; j++){
-       x[j+acc] = (int)(x_array + j * (l+x_dist) - ((serie[i]/2.0)*l) - (x_dist *(((serie[i]-min)/2.0)+1)));
+       x[j+acc] = (int)(x_array + j * (l+x_dist) - ((serie[i]/2.0)*l) - (x_dist *(((serie[i]-min )/2.0)+1)));
        y[j+acc] = (int)(y_array + (i - max/2)* (l+y_dist) - l/2.0 );    
     }   
     acc += serie[i];
