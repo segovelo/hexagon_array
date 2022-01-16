@@ -5,9 +5,9 @@ Polygon polygon;
 int min = 3;
 int max = 2*min - 1;
 int num = 0;
-int x_dist = 0;
-int y_dist = 0;
-int dist = 0;
+float x_dist = 0;
+float y_dist = 0;
+int dist = 20;
 int [] x;
 int [] y;
 int [] serie;
@@ -29,16 +29,16 @@ void setup(){
   serie = new int[max];
   int acc = 0;
   l = (int)(height-80)/max;
-  x_dist = -(int)(l * (1-tg60/2)) + dist; // -(int)(l * (1-tg60/2))
-  y_dist = (int) (-(l * cos(radians(60))/2) + (2*dist/tg60));//  (int) (((x_dist + (int)(3*l * (1-tg60/2))))/tg60);
+  x_dist = -(l * (1-tg60/2)) + dist; // -(int)(l * (1-tg60/2))
+  y_dist = (-(l * cos(radians(60))/2) + (2*dist/tg60));//  (int) (((x_dist + (int)(3*l * (1-tg60/2))))/tg60);
   for(int i=0; i<max ; i++){
     serie[i] = (min+i<=max)? min+i: serie[i-1]-1; 
   }
   
   for(int i=0; i<max; i++){
     for(int j=0; j<serie[i]; j++){
-       x[j+acc] = x_array + j * (l+x_dist) - (int)((serie[i]/2.0)*l) - (int)(x_dist *(((serie[i]-min)/2.0)+1));
-       y[j+acc] = y_array + i * (l+y_dist);
+       x[j+acc] = (int)(x_array + j * (l+x_dist) - ((serie[i]/2.0)*l) - (x_dist *(((serie[i]-min)/2.0)+1)));
+       y[j+acc] = (int)(y_array + i * (l+y_dist));
     }   
     acc += serie[i];
   }
